@@ -1,5 +1,7 @@
 # TODOs
-- Learn stripe and make premium version for website.
+- [  ] Learn stripe and make premium version for website.
     - For 7 days forecast.
-- Fetch Data.
-- Make UI.
+- [x] Fetch Data.
+- [x] Make UI
+- [x] Settings
+
