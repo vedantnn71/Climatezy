@@ -1,0 +1,20 @@
+.sidebar-container {
+  padding: 1.5rem;
+  background: rgba(15, 15, 15, 0.3);
+  box-shadow: 0px 4px 40px rgba(240, 240, 240, 0.15);
+  backdrop-filter: blur(0.8rem);
+  overflow: auto;
+}
+.sidebar-container::-webkit-scrollbar {
+  display: none;
+}
+
+li > .heading-small {
+  font-weight: normal;
+}
+.sidebar-container li {
+  margin: 1rem 0;
+}
+.nav-link {
+  font-weight: normal;
+}
