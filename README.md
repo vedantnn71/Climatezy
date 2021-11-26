@@ -1,4 +1,4 @@
-[Website](https://gitlab.com/vedantnn7/climatezy/-/raw/main/thumb.png)
+![Website](https://gitlab.com/vedantnn7/climatezy/-/raw/main/thumb.png)
 
 ## Available Scripts
 
