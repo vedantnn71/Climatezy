@@ -9,12 +9,21 @@
   display: none;
 }
 
+.sidebar-container ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around !important;
+  align-self: center;
+  justify-self: center;
+}
+
 li > .heading-small {
-  font-weight: normal;
+  font-weight: bold;
 }
 .sidebar-container li {
   margin: 1rem 0;
 }
 .nav-link {
   font-weight: normal;
+  cursor: pointer;
 }

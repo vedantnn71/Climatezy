@@ -33,3 +33,8 @@ a,
 li > h3 {
   font-size: 1.5rem !important;
 }
+input {
+  border: 0px;
+  outline: none;
+  font-size: 1.5rem;
+}
