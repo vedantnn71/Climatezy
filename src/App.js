@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Settings from "./components/Settings";
 import Ui from "./components/Ui";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const App = () => {
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
   const [forecast, setForecast] = useState("");
+  let location = useLocation();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -44,10 +46,21 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Ui location={[lat, long]} />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/places/:city" element={<Ui />} />
-        <Route path="/places/current" element={<Ui location={[lat, long]} />} />
+        <TransitionGroup>
+          <CSSTransition
+            key={location.pathname}
+            classNames="fade"
+            timeout={350}
+          >
+            <Route exact path="/" element={<Ui location={[lat, long]} />} />
+          </CSSTransition>
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/places/:city" element={<Ui />} />
+          <Route
+            path="/places/current"
+            element={<Ui location={[lat, long]} />}
+          />
+        </TransitionGroup>
       </Routes>
     </>
   );
