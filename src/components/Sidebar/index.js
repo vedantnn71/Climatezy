@@ -13,26 +13,26 @@ const Sidebar = ({ cities }) => {
   const places =
     typeof cities !== "undefined"
       ? cities.map((place, index) =>
-          place === "Add" ? (
-            <Popup
-              trigger={<li className="nav-link">{place}</li>}
-              position="center center"
-              key={index}
-            >
-              <AddPlace />
-            </Popup>
-          ) : (
-            <NavbarLink
-              name={place}
-              link={
-                typeof cities !== "undefined"
-                  ? `/places/${place.toLowerCase()}`
-                  : `/places/${place}`
-              }
-              key={index}
-            />
-          )
+        place === "Add" ? (
+          <Popup
+            trigger={<li className="nav-link">{place}</li>}
+            position="center center"
+            key={index}
+          >
+            <AddPlace />
+          </Popup>
+        ) : (
+          <NavbarLink
+            name={place}
+            link={
+              place !== null
+                ? `/places/${place.toLowerCase()}`
+                : `/places/${place}`
+            }
+            key={index}
+          />
         )
+      )
       : "";
 
   return (

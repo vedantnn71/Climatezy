@@ -10,7 +10,7 @@ const Ui = ({ location }) => {
   const [units, setUnits] = useState("metric"); // Default - Kelvin, Metric - Celsius, Imperial - Fahernite
   const [forecast, setForecast] = useState("");
   const [cities, setCities] = useState(
-    JSON.parse(localStorage.getItem("cities")) || ["Current", "Add"]
+    JSON.parse(localStorage.getItem("cities")).concat(["Add", "Current"]) || ["Current", "Add"]
   );
   const [city, setCity] = useState("");
   const params = useParams();
@@ -25,10 +25,13 @@ const Ui = ({ location }) => {
     if (data === []) {
       <h3>Loading...</h3>;
     }
-    setCities(cities.concat(["Add", "Current"]));
+    initUi();
+  }, []);
+
+  const initUi = () => {
     setCity(params.city);
     getWeather(city);
-  }, []);
+  }
 
   const getWeather = () => {
     let endpoint = setForecastEndpoint(forecast || "");
@@ -44,6 +47,10 @@ const Ui = ({ location }) => {
       })
       .catch((err) => <h3>Error: {err}</h3>);
   };
+
+  if (params.city !== city) {
+    initUi();
+  }
 
   return (
     <div className="app-container">

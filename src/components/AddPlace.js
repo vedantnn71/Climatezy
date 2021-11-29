@@ -47,10 +47,10 @@ const AddPlace = () => {
           <ul>
             {typeof cities !== "undefined" || cities !== []
               ? cities.map((place, index) => (
-                  <li className="search-item completion-item box" key={index}>
-                    <a href={`/places/${place}`}>{place}</a>
-                  </li>
-                ))
+                <li className="search-item completion-item box" key={index}>
+                  <Link to={`/places/${place}`}>{place}</Link>
+                </li>
+              ))
               : ""}
           </ul>
         </div>
