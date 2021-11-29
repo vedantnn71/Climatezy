@@ -20,7 +20,6 @@ const AddPlace = () => {
     if (e.key === "Enter") {
       handleChange(e);
       setCity("");
-      history.push(`/places/${cities[cities.length - 1]}`);
     }
   };
 
@@ -48,8 +47,8 @@ const AddPlace = () => {
           <ul>
             {typeof cities !== "undefined" || cities !== []
               ? cities.map((place, index) => (
-                  <li className="search-item completion-item" key={index}>
-                    <Link to={`/${place}`}>{place}</Link>
+                  <li className="search-item completion-item box" key={index}>
+                    <a href={`/places/${place}`}>{place}</a>
                   </li>
                 ))
               : ""}

@@ -34,7 +34,7 @@
 .completion-item {
   background: #fff;
   width: 100%;
-  color: #0f0f0f;
+  color: #0f0f0f !important;
 }
 .completion-box  {
   height: auto;

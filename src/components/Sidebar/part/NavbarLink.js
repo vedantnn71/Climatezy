@@ -1,9 +1,14 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NavbarLink = ({ name, link }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(link);
+  };
+
   return (
     <li className="nav-link">
-      <Link to={link}>{name}</Link>
+      <button onClick={handleClick}>{name}</button>
     </li>
   );
 };

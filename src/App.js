@@ -3,12 +3,10 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Settings from "./components/Settings";
 import Ui from "./components/Ui";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const App = () => {
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
-  const [forecast, setForecast] = useState("");
   let location = useLocation();
 
   useEffect(() => {
@@ -46,21 +44,14 @@ const App = () => {
   return (
     <>
       <Routes>
-        <TransitionGroup>
-          <CSSTransition
-            key={location.pathname}
-            classNames="fade"
-            timeout={350}
-          >
-            <Route exact path="/" element={<Ui location={[lat, long]} />} />
-          </CSSTransition>
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/places/:city" element={<Ui />} />
-          <Route
-            path="/places/current"
-            element={<Ui location={[lat, long]} />}
-          />
-        </TransitionGroup>
+        <Route exact path="/" element={<Ui location={[lat, long]} />} />
+        <Route exact path="/settings" element={<Settings />} />
+        <Route exact path="/places/:city" element={<Ui />} />
+        <Route
+          exact
+          path="/places/current"
+          element={<Ui location={[lat, long]} />}
+        />
       </Routes>
     </>
   );
