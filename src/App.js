@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import AddPlace from "./components/AddPlace";
 import Settings from "./components/Settings";
 import Ui from "./components/Ui";
 
 const App = () => {
   const [lat, setLat] = useState(0);
   const [long, setLong] = useState(0);
-  let location = useLocation();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -44,14 +44,12 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Ui location={[lat, long]} />} />
-        <Route exact path="/settings" element={<Settings />} />
-        <Route exact path="/places/:city" element={<Ui />} />
-        <Route
-          exact
-          path="/places/current"
-          element={<Ui location={[lat, long]} />}
-        />
+        <Route path="/" element={<Ui location={[lat, long]} />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/places/:city" element={<Ui />} />
+        <Route path="/places/current" element={<Ui location={[lat, long]} />} />
+        <Route path="/places/add" element={<AddPlace />} />
+        <Route path="/forecast/:forecast" element={<Ui />} />
       </Routes>
     </>
   );

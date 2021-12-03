@@ -3,23 +3,32 @@ import { useParams } from "react-router";
 import Header from "../Header";
 import Sidebar from "../Sidebar";
 import Head from "./part/Head";
-import { setForecastEndpoint, setBackgroundClass } from "./utils";
+import { setBackgroundClass, setForecastEndpoint, getWeather } from "./utils";
 
-const Ui = ({ location }) => {
+const Ui = ({ location, forecast }) => {
   const [data, setData] = useState([]);
   const [units, setUnits] = useState("metric"); // Default - Kelvin, Metric - Celsius, Imperial - Fahernite
-  const [forecast, setForecast] = useState("");
-  const [cities, setCities] = useState(
-    JSON.parse(localStorage.getItem("cities")).concat(["Add", "Current"]) || ["Current", "Add"]
-  );
   const [city, setCity] = useState("");
   const params = useParams();
-  const api_key = process.env.REACT_APP_API_KEY;
+  const [apiKey, setApiKey] = useState(process.env.REACT_APP_API_KEY);
   let [lat, long] = [0, 0];
 
   if (location) {
     [lat, long] = location;
   }
+
+  /* eslint-disable-next-line */
+  const initUi = () => {
+    let endpoint = setForecastEndpoint(forecast || "");
+    console.log("Forecast", setForecastEndpoint(forecast));
+    setCity(params.city);
+    const baseURL =
+      typeof params.city !== "undefined"
+        ? `http://api.openweathermap.org/data/2.5/${endpoint}?q=${params.city}&units=${units}&appid=${apiKey}`
+        : `http://api.openweathermap.org/data/2.5/${endpoint}?lat=${lat}&lon=${long}&units=${units}&appid=${apiKey}`;
+
+    getWeather(setData, setApiKey, apiKey, baseURL);
+  };
 
   useEffect(() => {
     if (data === []) {
@@ -28,26 +37,6 @@ const Ui = ({ location }) => {
     initUi();
   }, []);
 
-  const initUi = () => {
-    setCity(params.city);
-    getWeather(city);
-  }
-
-  const getWeather = () => {
-    let endpoint = setForecastEndpoint(forecast || "");
-    const api_url =
-      typeof params.city !== "undefined"
-        ? `http://api.openweathermap.org/data/2.5/${endpoint}?q=${params.city}&units=${units}&appid=${api_key}`
-        : `http://api.openweathermap.org/data/2.5/${endpoint}?lat=${lat}&lon=${long}&units=${units}&appid=${api_key}`;
-
-    fetch(api_url)
-      .then((res) => res.json())
-      .then((result) => {
-        setData(result);
-      })
-      .catch((err) => <h3>Error: {err}</h3>);
-  };
-
   if (params.city !== city) {
     initUi();
   }
@@ -55,7 +44,11 @@ const Ui = ({ location }) => {
   return (
     <div className="app-container">
       {typeof data.weather !== "undefined" ? (
-        <div className={`${setBackgroundClass()} app-container`}>
+        <div
+          className={`${setBackgroundClass(
+            data.weather[0].main
+          )} app-container`}
+        >
           <Head
             main={data.weather[0].main}
             temp={Math.round(data.main.temp)}
@@ -74,7 +67,7 @@ const Ui = ({ location }) => {
             }
             units={units}
           />
-          <Sidebar cities={cities} />
+          <Sidebar />
         </div>
       ) : (
         ""

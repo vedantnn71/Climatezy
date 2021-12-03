@@ -13,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: 0.4s ease !important;
+  overflow: hidden !important;
 }
 
 #root {
@@ -38,3 +39,7 @@ input {
   outline: none;
   font-size: 1.5rem;
 }
+.popup-arrow {
+  display: none;
+  opacity: 0;
+} /* Popup arrow of react-popup component */

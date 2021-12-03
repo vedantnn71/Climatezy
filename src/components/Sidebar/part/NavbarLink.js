@@ -1,10 +1,18 @@
 import { Link } from "react-router-dom";
 
-const NavbarLink = ({ name, link }) => {
+const NavbarLink = ({ name, link, isPopup, setPopup }) => {
   return (
-    <li className="nav-link">
-      <Link to={link}>{name}</Link>
-    </li>
+    <>
+      {isPopup ? (
+        <li className="nav-link">
+          <Link to="" onClick={() => setPopup(true)}>{name}</Link>
+        </li>
+      ) : (
+        <li className="nav-link">
+          <Link to={link}>{name}</Link>
+        </li>
+      )}
+    </>
   );
 };
 

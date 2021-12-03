@@ -33,3 +33,14 @@
     backdrop-filter: blur(0.8rem);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .extra-container {
+    display: flex;
+    /* flex-direction: column !important; */
+    width: max-content;
+    padding: 1rem;
+  }.extra-box {
+    margin: .5rem .5rem;
+  }
+}

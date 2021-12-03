@@ -15,7 +15,6 @@
   align-self: center;
   justify-self: center;
 }
-
 li > .heading-small {
   font-weight: bold;
 }
@@ -30,5 +29,23 @@ li > .heading-small {
   .sidebar-container {
     -webkit-backdrop-filter: blur(0.8rem);
     backdrop-filter: blur(0.8rem);
+  }
+}
+@media screen and (max-width: 768px) {
+  .sidebar-container {
+    overflow: scroll;
+    position: fixed;
+    height: 100vh;
+    display: flex !important;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    top: 0%;
+    width: 100vw;
+    background: rgba(15, 15, 15, 0.3);
+    z-index: 200;
+    backdrop-filter: blur(0.8rem);
+    flex-direction: column;
+    justify-content: center;
   }
 }
