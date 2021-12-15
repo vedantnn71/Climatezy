@@ -5,11 +5,15 @@ const NavbarLink = ({ name, link, isPopup, setPopup }) => {
     <>
       {isPopup ? (
         <li className="nav-link">
-          <Link to="" onClick={() => setPopup(true)}>{name}</Link>
+          <Link to="" onClick={() => setPopup(true)}>
+            {name}
+          </Link>
         </li>
       ) : (
         <li className="nav-link">
-          <Link to={link}>{name}</Link>
+          <Link to={link} onClick={() => setPopup(false)}>
+            {name}
+          </Link>
         </li>
       )}
     </>

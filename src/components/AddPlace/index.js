@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import "boxicons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { capitalize } from "../utils";
 import "../../AddPlace.css";
 import Places from "./part/Places";
-import { capitalize } from "../utils";
+import "boxicons";
 
-const AddPlace = ({ cities, setCities }) => {
+const AddPlace = ({ cities, setCities, setShowSidebar, setShowMenuButton }) => {
   const [city, setCity] = useState("");
   const [hide, setHide] = useState(false);
   const navigate = useNavigate();
@@ -20,6 +20,8 @@ const AddPlace = ({ cities, setCities }) => {
     if (e.key === "Enter") {
       handleChange(e);
       navigate(`/places/${e.target.value}`);
+      setShowSidebar(false);
+      setShowMenuButton(true);
 
       for (let i = 0; i < cities.length; i++) {
         const place = cities[i];
@@ -30,7 +32,7 @@ const AddPlace = ({ cities, setCities }) => {
         }
       }
 
-      if (isTarget === false && cities) {
+      if (isTarget === false && cities && cities.length < 4) {
         cities.push(capitalize(e.target.value));
         localStorage.setItem("cities", JSON.stringify(cities));
       }
@@ -53,7 +55,11 @@ const AddPlace = ({ cities, setCities }) => {
       <div className="add-place-child">
         <div className="box search-box">
           <div className="search-item">
-            <box-icon name="search" size="1.5rem"></box-icon>
+            <box-icon
+              name="search"
+              size="1.5rem"
+              onClick={handleEnter}
+            ></box-icon>
           </div>
           <input
             type="text"

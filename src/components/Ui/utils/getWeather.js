@@ -6,9 +6,11 @@ const getWeather = async (
   setApiKey,
   apiKey,
   baseURL,
-  forecast,
-  params,
+  setIsLoading,
+  forecast
 ) => {
+  let forecastList = [];
+  setIsLoading(true);
   axiosRetry(axios, {
     retries: 3,
     retryCondition: (err) => {
@@ -24,8 +26,40 @@ const getWeather = async (
     },
   })
     .then((response) => {
+      setIsLoading(false);
       setData(response.data);
-      console.log(apiKey);
+
+      if (forecast === "tommorow" || forecast === "week") {
+        const currentTime = new Date().getDate();
+
+        if (forecast === "tommorow" && response.data.list) {
+          response.data.list.forEach((forecastItem) => {
+            const forecastTime = new Date(forecastItem.dt * 1000).getDate();
+
+            if (
+              forecastTime === currentTime ||
+              forecastTime === currentTime + 1
+            ) {
+              forecastList.push(forecastItem);
+            }
+          });
+          setData(forecastList);
+        }
+        // TODO ->
+        // else if (forecast === "week" && response.data.list) {
+        //   response.data.list.forEach((forecastItem) => {
+        //     const forecastTime = new Date(forecastItem.dt);
+        //     // forecastList.forEach((item) => {
+        //     //   if (forecastTime !== currentTime) {
+        //     //     forecastList.push(forecastItem);
+        //     //   }
+        //     // });
+        //     forecastList.push(forecastItem);
+        //   });
+        // }
+      }
+
+      console.log(forecastList);
     })
     .catch((err) => {
       if (err.response) {

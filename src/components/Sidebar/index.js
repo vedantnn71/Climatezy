@@ -1,25 +1,13 @@
 /* eslint-disable no-unused-vars */
-import "boxicons";
 import { useEffect, useState } from "react";
+import { capitalize } from "../utils";
 import Popup from "reactjs-popup";
 import "../../Sidebar.css";
 import AddPlace from "../AddPlace";
-import { capitalize } from "../utils";
 import NavbarLink from "./part/NavbarLink";
-// import "reactjs-popup/dist/index.css";
+import "boxicons";
 
-/*
-  TODO -> Make this code DRY
-*/
-
-const Sidebar = () => {
-  const windowSize = window.innerWidth;
-  const [showSidebar, setShowSidebar] = useState(windowSize > 768);
-  const [showCloseButton, setShowCloseButton] = useState(windowSize < 768);
-  const [showMenuButton, setShowMenuButton] = useState(
-    showCloseButton === false
-  );
-  // const getCities =
+const Sidebar = ({ showSidebar, setShowSidebar, setShowMenuButton }) => {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -38,6 +26,7 @@ const Sidebar = () => {
         setCities([...cities, "Add", "Current"]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const Places = () => {
@@ -45,17 +34,21 @@ const Sidebar = () => {
       typeof cities !== "undefined"
         ? cities.map((place, index) =>
             place === "Add" ? (
-              // <NavbarLink isPopup={true} setPopup={setPopup} name={place} />
               <Popup
                 trigger={<li className="nav-link">{capitalize(place)}</li>}
                 position="center center"
                 key={index}
               >
-                <AddPlace cities={cities} setCities={setCities} />
+                <AddPlace
+                  cities={cities}
+                  setCities={setCities}
+                  setShowSidebar={setShowSidebar}
+                  setShowMenuButton={setShowMenuButton}
+                />
               </Popup>
             ) : (
               <NavbarLink
-                name={capitalize(place)}
+                name={place}
                 link={
                   place !== null
                     ? `/places/${place.toLowerCase()}`
@@ -69,24 +62,18 @@ const Sidebar = () => {
     return place;
   };
 
-  return showSidebar ? (
+  return (
     <div
-      className="sidebar-container"
-      style={{ display: `${showSidebar ? "block" : "none"}` }}
+      className={`sidebar-container ${
+        showSidebar ? "open-sidebar" : "close-sidebar"
+      }`}
     >
-      <button
-        style={{ display: `${showCloseButton ? "initial" : "none"}` }}
-        onClick={() => setShowSidebar(!showSidebar)}
-      >
-        <box-icon name="x" size="sm"></box-icon>
-      </button>
       <ul>
         <div className="places-container">
           <li className="heading-container">
             <h3 className="heading heading-small">Places</h3>
             <hr className="sep sep-left sep-40" />
           </li>
-          {/* TODO -> Make add functionality */}
           {typeof cities !== "undefined" ? (
             <Places />
           ) : (
@@ -94,33 +81,26 @@ const Sidebar = () => {
           )}
           <hr className="sep sep-left" />
         </div>
-        <div className="forecast-container">
-          <li className="heading-container">
-            <h3 className="heading heading-small">Forecast</h3>
-            <hr className="sep sep-left sep-40" />
-          </li>
-          <NavbarLink name="Tommorow" link="/forecast/tommorow" />
-          <NavbarLink name="This Week" link="/forecast/week" />
-          <NavbarLink name="This Month" link="/forecast/month" />
-          <hr className="sep sep-left" />
+        <div title="Feature in development">
+          <div aria-disabled="true" className="disabled forecast-container">
+            <li className="heading-container">
+              <h3 className="heading heading-small">Forecast</h3>
+              <hr className="sep sep-left sep-40" />
+            </li>
+            <NavbarLink name="Today" link="/" />
+            <NavbarLink name="Tommorow" link="/forecast/tommorow" />
+            <NavbarLink name="This Week" link="/forecast/week" />
+            <hr className="sep sep-left" />
+          </div>
         </div>
 
-        <div className="settings-container">
-          <NavbarLink name="Settings" link="/settings" />
+        <div title="Feature in development">
+          <div className="disabled settings-container">
+            <NavbarLink name="Settings" link="/settings" />
+          </div>
         </div>
       </ul>
-    </div> ? (
-      !showSidebar && windowSize > 768
-    ) : (
-      <button
-        style={{ display: `${showMenuButton ? "block" : "none"}` }}
-        onClick={() => setShowSidebar(!showSidebar)}
-      >
-        <box-icon name="menu-alt-right" size="sm"></box-icon>
-      </button>
-    )
-  ) : (
-    ""
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import "boxicons";
 
 const Places = (props) => {

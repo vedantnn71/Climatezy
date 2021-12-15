@@ -26,6 +26,17 @@
   text-align: center;
 }
 
+.heading-child-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
 @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
   .extra-container {
     background: rgba(15, 15, 15, 0.3);
@@ -37,10 +48,30 @@
 @media screen and (max-width: 768px) {
   .extra-container {
     display: flex;
-    /* flex-direction: column !important; */
     width: max-content;
-    padding: 1rem;
-  }.extra-box {
-    margin: .5rem .5rem;
+    padding: .8rem;
   }
+  .extra-box {
+    margin: 0.5rem 0.5rem;
+  }
+  .main-heading {
+      max-width: 2px; /* To make a line break */
+  }
+}
+
+@media screen and (max-width: 350px) {
+    .extra-container {
+	display: flex;
+	max-width: max-content;
+	justify-content: center;
+    }
+    .extra-container .heading {
+	font-size: .9rem;
+    }
+}
+
+@media screen and (max-width: 295px) {
+    .extra-container .heading {
+	font-size: .85rem;
+    }
 }

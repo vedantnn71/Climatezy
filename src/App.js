@@ -4,6 +4,7 @@ import "./App.css";
 import AddPlace from "./components/AddPlace";
 import Settings from "./components/Settings";
 import Ui from "./components/Ui";
+import Commandline from "./components/Commandline";
 
 const App = () => {
   const [lat, setLat] = useState(0);
@@ -50,6 +51,7 @@ const App = () => {
         <Route path="/places/current" element={<Ui location={[lat, long]} />} />
         <Route path="/places/add" element={<AddPlace />} />
         <Route path="/forecast/:forecast" element={<Ui />} />
+        <Route path="/cmd/:f" element={<Commandline />} />
       </Routes>
     </>
   );
