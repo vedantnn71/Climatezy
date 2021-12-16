@@ -81,7 +81,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, setShowMenuButton }) => {
           )}
           <hr className="sep sep-left" />
         </div>
-        <div title="Feature in development">
+        <div className="disabled-parent" title="Feature in development">
           <div aria-disabled="true" className="disabled forecast-container">
             <li className="heading-container">
               <h3 className="heading heading-small">Forecast</h3>
@@ -94,7 +94,7 @@ const Sidebar = ({ showSidebar, setShowSidebar, setShowMenuButton }) => {
           </div>
         </div>
 
-        <div title="Feature in development">
+        <div className="disabled-parent" title="Feature in development">
           <div className="disabled settings-container">
             <NavbarLink name="Settings" link="/settings" />
           </div>

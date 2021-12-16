@@ -6,8 +6,7 @@ import Sidebar from "../Sidebar";
 import Head from "./part/Head";
 import { setBackgroundClass, setForecastEndpoint, getWeather } from "./utils";
 // import { ReactComponent as Preloader } from "../../images/preloader.svg";
-
-const Ui = ({ location }) => {
+const Ui = () => {
   const [data, setData] = useState([]);
   const [units, setUnits] = useState("metric"); // Default - Kelvin, Metric - Celsius, Imperial - Fahernite
   const [city, setCity] = useState("");
@@ -23,12 +22,11 @@ const Ui = ({ location }) => {
   const [animation, setAnimation] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [forecastData, setForecastData] = useState([]);
-  let [lat, long] = [0, 0];
+  let [lat, long] = [
+    localStorage.getItem("latitude") ?? 0,
+    localStorage.getItem("longitude") ?? 0,
+  ];
   const [prev_lat, prev_long] = [lat, long];
-
-  if (location) {
-    [lat, long] = location;
-  }
 
   /* eslint-disable-next-line */
   const initData = () => {
@@ -55,6 +53,10 @@ const Ui = ({ location }) => {
     initData();
   }
 
+  if (prev_lat !== lat || prev_long !== long) {
+    window.location.reload();
+  }
+
   const fadeEffect = () => {
     let opacity = 1;
     setInterval(() => {
@@ -63,16 +65,6 @@ const Ui = ({ location }) => {
       }
     }, 200);
     return opacity;
-  };
-
-  const randomColor = () => {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
   };
 
   return !isLoading ? (
@@ -126,11 +118,10 @@ const Ui = ({ location }) => {
       className="preloader"
       style={{
         opacity: fadeEffect(),
-        background: `linear-gradient(45deg, ${randomColor()}, ${randomColor()})`,
       }}
     >
       <img
-        src="./images/logo.svg"
+        src={`${process.env.PUBLIC_URL}/logo.svg`}
         style={{ fill: "#f0f0f0" }}
         alt="Climatezy logo"
       />

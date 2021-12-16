@@ -70,7 +70,7 @@ h1,
 .preloader img {
   -webkit-animation:preloader-spin 3s linear infinite;
   -moz-animation:preloader-spin 3s linear infinite;
-  animation:preloader-spin 3s linear infinite;
+  animation:preloader-spin 2s ease-in-out infinite;
   max-width: 7rem !important;
 }
 .preloader {

@@ -7,19 +7,36 @@ import Ui from "./components/Ui";
 import Commandline from "./components/Commandline";
 
 const App = () => {
-  const [lat, setLat] = useState(0);
-  const [long, setLong] = useState(0);
-
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setLat(pos.coords.latitude);
-          setLong(pos.coords.longitude);
-        },
-        handleLocationError,
-        { enableHighAccuracy: true }
-      );
+      const readLocation = () => {
+        if (navigator.geolocation) {
+          const geoId = navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+              const accuracy = position.coords.accuracy;
+              localStorage.setItem("latitude", lat);
+              localStorage.setItem("longitude", lon);
+              console.log({ lat, lon }, position.coords.accuracy);
+              if (position.coords.accuracy > 10) {
+                window.alert(
+                  "The GPS accuracy isn't good enough, search for location manually."
+                );
+              }
+            },
+            (e) => {
+              console.error(e.message);
+              console.error(e.message);
+            },
+            { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 }
+          );
+        }
+
+        return;
+      };
+
+      readLocation();
     }
   }, []);
 
@@ -49,10 +66,10 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Ui location={[lat, long]} />} />
+        <Route path="/" element={<Ui />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/places/:city" element={<Ui />} />
-        <Route path="/places/current" element={<Ui location={[lat, long]} />} />
+        <Route path="/places/current" element={<Ui />} />
         <Route path="/places/add" element={<AddPlace />} />
         <Route path="/forecast/:forecast" element={<Ui />} />
         <Route path="/cmd/:f" element={<Commandline />} />
