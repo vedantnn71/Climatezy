@@ -129,7 +129,11 @@ const Ui = ({ location }) => {
         background: `linear-gradient(45deg, ${randomColor()}, ${randomColor()})`,
       }}
     >
-      <img src="/logo.svg" style={{ fill: "#f0f0f0" }} alt="Climatezy logo" />
+      <img
+        src="./images/logo.svg"
+        style={{ fill: "#f0f0f0" }}
+        alt="Climatezy logo"
+      />
     </div>
   );
 };
