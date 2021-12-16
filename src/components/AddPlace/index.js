@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { capitalize } from "../utils";
+import { useWindowDimensions } from "../hooks";
 import "../../AddPlace.css";
 import Places from "./part/Places";
 import "boxicons";
@@ -9,6 +10,7 @@ import "boxicons";
 const AddPlace = ({ cities, setCities, setShowSidebar, setShowMenuButton }) => {
   const [city, setCity] = useState("");
   const [hide, setHide] = useState(false);
+  const { width, height } = useWindowDimensions();
   const navigate = useNavigate();
   let isTarget = false;
 
@@ -20,9 +22,12 @@ const AddPlace = ({ cities, setCities, setShowSidebar, setShowMenuButton }) => {
     if (e.key === "Enter") {
       handleChange(e);
       navigate(`/places/${e.target.value}`);
-      setShowSidebar(false);
-      setShowMenuButton(true);
-
+      if (width > 768) {
+        console.log(".");
+      } else {
+        setShowMenuButton(true);
+        setShowSidebar(false);
+      }
       for (let i = 0; i < cities.length; i++) {
         const place = cities[i];
 
@@ -49,7 +54,7 @@ const AddPlace = ({ cities, setCities, setShowSidebar, setShowMenuButton }) => {
         }}
         className="btn white no-bg no-border top-right"
       >
-        <box-icon name="x" size="2rem"></box-icon>
+        <box-icon name="x" size="2rem" color="#f0f0f0"></box-icon>
       </button>
 
       <div className="add-place-child">

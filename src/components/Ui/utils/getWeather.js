@@ -59,7 +59,7 @@ const getWeather = async (
         // }
       }
 
-      console.log(forecastList);
+      // console.log(forecastList);
     })
     .catch((err) => {
       if (err.response) {

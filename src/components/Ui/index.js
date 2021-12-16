@@ -5,7 +5,7 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 import Head from "./part/Head";
 import { setBackgroundClass, setForecastEndpoint, getWeather } from "./utils";
-import { ReactComponent as Preloader } from "../../images/preloader.svg";
+// import { ReactComponent as Preloader } from "../../images/preloader.svg";
 
 const Ui = ({ location }) => {
   const [data, setData] = useState([]);
@@ -24,6 +24,7 @@ const Ui = ({ location }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [forecastData, setForecastData] = useState([]);
   let [lat, long] = [0, 0];
+  const [prev_lat, prev_long] = [lat, long];
 
   if (location) {
     [lat, long] = location;
@@ -128,7 +129,7 @@ const Ui = ({ location }) => {
         background: `linear-gradient(45deg, ${randomColor()}, ${randomColor()})`,
       }}
     >
-      <Preloader />
+      <img src="/logo.svg" style={{ fill: "#f0f0f0" }} alt="Climatezy logo" />
     </div>
   );
 };

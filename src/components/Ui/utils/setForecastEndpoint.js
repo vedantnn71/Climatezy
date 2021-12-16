@@ -5,7 +5,6 @@ const setForecastEndpoint = (forecast) => {
     week: "forecast",
     default: "weather",
   };
-  console.log(endpoints[forecast]);
   return endpoints[forecast] || endpoints["default"];
 };
 

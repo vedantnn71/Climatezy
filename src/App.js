@@ -12,10 +12,14 @@ const App = () => {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        setLat(pos.coords.latitude);
-        setLong(pos.coords.longitude);
-      }, handleLocationError);
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setLat(pos.coords.latitude);
+          setLong(pos.coords.longitude);
+        },
+        handleLocationError,
+        { enableHighAccuracy: true }
+      );
     }
   }, []);
 
