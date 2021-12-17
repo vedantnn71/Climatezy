@@ -1,1 +1,2 @@
-- Update preloader.
+- Update preloader, path & animation.
+- Fix 404 bug.
