@@ -67,11 +67,13 @@ h1,
 .sep.sep-40 {
   width: 35%;
 }
-.preloader img {
+.preloader-main {
   -webkit-animation:preloader-spin 3s linear infinite;
   -moz-animation:preloader-spin 3s linear infinite;
   animation:preloader-spin 2s ease-in-out infinite;
-  max-width: 7rem !important;
+  width: 100% ;
+  display: block;
+  align-self: center;
 }
 .preloader {
   background-image: url("./images/preloader-bg.jpg") !important;

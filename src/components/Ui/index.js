@@ -5,6 +5,7 @@ import Header from "../Header";
 import Sidebar from "../Sidebar";
 import Head from "./part/Head";
 import { setBackgroundClass, setForecastEndpoint, getWeather } from "./utils";
+import { ReactComponent as Logo } from "../../images/logo.svg";
 // import { ReactComponent as Preloader } from "../../images/preloader.svg";
 const Ui = () => {
   const [data, setData] = useState([]);
@@ -120,10 +121,9 @@ const Ui = () => {
         opacity: fadeEffect(),
       }}
     >
-      <img
-        src={`${process.env.PUBLIC_URL}/logo.svg`}
-        style={{ fill: "#f0f0f0" }}
-        alt="Climatezy logo"
+      <Logo
+        className="preloader-main"
+        style={{ height: "6rem", width: "6rem" }}
       />
     </div>
   );

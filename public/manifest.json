@@ -1,9 +1,9 @@
 {
   "short_name": "Climatezy",
-  "name": "Latest weather info for your locality.",
+  "name": "Climatezy",
   "icons": [
     {
-      "src": "favicon.svg",
+      "src": "logo.svg",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/svg+xml"
     },
