@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import AddPlace from "./components/AddPlace";
 import Settings from "./components/Settings";
 import Ui from "./components/Ui";
 import Commandline from "./components/Commandline";
+import axios from "axios";
 
 const App = () => {
+  const lastLocation = localStorage.getItem("last-location") ?? "";
+  const navigate = useNavigate();
   useEffect(() => {
+    if (lastLocation !== "") {
+      navigate("/places/" + lastLocation);
+    } else {
+      console.log("No last location");
+    }
     if (navigator.geolocation) {
       const readLocation = () => {
         if (navigator.geolocation) {
@@ -18,17 +26,13 @@ const App = () => {
               const accuracy = position.coords.accuracy;
               localStorage.setItem("latitude", lat);
               localStorage.setItem("longitude", lon);
-              console.log({ lat, lon }, position.coords.accuracy);
-              if (position.coords.accuracy > 10) {
+              if (position.coords.accuracy > 100) {
                 window.alert(
                   "The GPS accuracy isn't good enough, search for location manually."
                 );
               }
             },
-            (e) => {
-              console.error(e.message);
-              console.error(e.message);
-            },
+            handleLocationError,
             { enableHighAccuracy: true, maximumAge: 2000, timeout: 5000 }
           );
         }
@@ -41,11 +45,18 @@ const App = () => {
   }, []);
 
   const handleLocationError = (err) => {
+    const ipApiKey = process.env.REACT_APP_IP_API_KEY;
+    const baseURL = `https://api.freegeoip.app/json/?apikey=${ipApiKey}`;
+    axios.get(baseURL).then((response) => {
+      localStorage.setItem("latitude", response.data.latitude);
+      localStorage.setItem("longitude", response.data.longitude);
+    });
+
     // eslint-disable-next-line
     switch (err.code) {
       case err.PERMISSION_DENIED:
         alert(
-          "Please allow location access to get weather information in your locality."
+          "Please allow location access to get accurate weather information in your locality."
         );
         break;
       case err.POSITION_UNAVAILABLE:

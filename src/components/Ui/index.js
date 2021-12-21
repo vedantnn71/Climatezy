@@ -24,8 +24,8 @@ const Ui = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [forecastData, setForecastData] = useState([]);
   let [lat, long] = [
-    localStorage.getItem("latitude") ?? 0,
-    localStorage.getItem("longitude") ?? 0,
+    +localStorage.getItem("latitude") ?? 0,
+    +localStorage.getItem("longitude") ?? 0,
   ];
   const [prev_lat, prev_long] = [lat, long];
 
@@ -48,6 +48,10 @@ const Ui = () => {
 
   useEffect(() => {
     initData();
+    if (params.city !== undefined) {
+      localStorage.setItem("last-location", params.city);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (params.city !== city) {
@@ -87,7 +91,7 @@ const Ui = () => {
             humid={`${data.main.humidity}%`}
             wind={`${Math.round(data.wind.speed * 3.6)}KM/h`}
             sky={
-              { main: "Clouds", data: `${data.clouds.all}%` } || {
+              { main: "Clouds", data: `${data.clouds.all}%` } ?? {
                 main: "Precipitation",
                 data: `${data.precipitation.value}mm`,
               }

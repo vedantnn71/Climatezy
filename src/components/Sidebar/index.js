@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { capitalize } from "../utils";
+import { useParams, useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 import "../../Sidebar.css";
 import AddPlace from "../AddPlace";
@@ -9,6 +10,7 @@ import "boxicons";
 
 const Sidebar = ({ showSidebar, setShowSidebar, setShowMenuButton }) => {
   const [cities, setCities] = useState([]);
+  const params = useParams();
 
   useEffect(() => {
     setCities(
@@ -26,6 +28,8 @@ const Sidebar = ({ showSidebar, setShowSidebar, setShowMenuButton }) => {
         setCities([...cities, "Add", "Current"]);
       }
     }
+
+    localStorage.setItem("last-location", params.city);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

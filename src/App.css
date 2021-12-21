@@ -88,8 +88,13 @@ h1,
   100% { -webkit-transform: rotate(360deg); } 
 }
 @keyframes preloader-spin { 
-  100% { 
+  0% {
+    opacity: 1;
+  } 50% {
+    opacity: 0.60;
+  } 100% { 
       -webkit-transform: rotate(360deg); 
+      opacity: 1;
       transform:rotate(360deg); 
   } 
 }
