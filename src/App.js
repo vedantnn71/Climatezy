@@ -10,6 +10,7 @@ import axios from "axios";
 const App = () => {
   const lastLocation = localStorage.getItem("last-location") ?? "";
   const navigate = useNavigate();
+
   useEffect(() => {
     if (lastLocation !== "") {
       navigate("/places/" + lastLocation);
@@ -72,6 +73,11 @@ const App = () => {
         break;
     }
   };
+
+  console.log(
+    "%c Made with ❤️ by Vedant Nandwana \nIf you like my work please support me over on patreon -> https://www.patreon.com/vedantnn7",
+    "background-color: #2E3440;color: #D8DEE9;"
+  );
 
   //  TODO - Make unit of wind to DRY;
   return (
